@@ -27,3 +27,16 @@ println!("listening on port 8080");
 ```
 
 Penting untuk memastikan bahwa port yang digunakan oleh klien dan server adalah sama. Jika port yang digunakan berbeda, akan terjadi kesalahan di mana klien tidak dapat terhubung ke server yang mengakibatkan terminate program
+
+## 2.3. Small changes. Add some information to client
+![Experiment 2.3: Small changes. Add some information to client](assets/images/Experiment%202.3.jpg)
+
+Terlihat pada gambar, bahwa saya menggunakan nama hostname komputer, yang dalam kasus ini adalah "nanda", sebagai bagian dari informasi yang ditampilkan. Untuk mendapatkan nama hostname ini, saya menggunakan dependensi `gethostname` di Rust. saya telah memodifikasi pernyataan print di kode klien dan server dengan menambahkan hostname ke output, sehingga kodenya menjadi seperti ini untuk kedua file:
+
+```rust
+let hostname = gethostname().into_string().unwrap_or_else(|_| "unknown".to_string());
+...
+println!("... {}'s ...{}", hostname, addr);
+```
+
+Dengan perubahan ini, semua pesan yang dikirim akan mencakup informasi dari komputer atau perangkat mana pesan tersebut berasal, memberikan klarifikasi tambahan mengenai sumber pesan. Ini sangat berguna dalam pengaturan di mana banyak klien terhubung dan berinteraksi melalui server yang sama
